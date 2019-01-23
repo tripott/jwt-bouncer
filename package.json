@@ -1,0 +1,19 @@
+{
+  "name": "check-jwt-whitelist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "lynt",
+    "prettier": "prettier --no-semi --single-quote --write '**/*.js'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "lynt": "^0.5.4",
+    "prettier": "^1.16.1"
+  },
+  "dependencies": {}
+}
