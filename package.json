@@ -1,7 +1,7 @@
 {
-  "name": "check-jwt-whitelist",
+  "name": "jwt-bouncer",
   "version": "1.0.0",
-  "description": "",
+  "description": "A security guard to protect your APIs from undesirable JWTs by verifying JsonWebTokens.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,11 +9,19 @@
     "prettier": "prettier --no-semi --single-quote --write '**/*.js'"
   },
   "keywords": [],
-  "author": "",
+  "author": "tripott",
   "license": "MIT",
   "devDependencies": {
     "lynt": "^0.5.4",
     "prettier": "^1.16.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tripott/jwt-bouncer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tripott/jwt-bouncer/issues"
+  },
+  "homepage": "https://github.com/tripott/jwt-bouncer#readme"
 }
