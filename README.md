@@ -1,6 +1,6 @@
 # jwt-bouncer
 
-![npm version](https://img.shields.io/badge/npm-1.0.0-blue.svg) ![Licence MIT](https://img.shields.io/badge/licence-MIT-yellowgreen.svg) ![Open Issues](https://img.shields.io/github/issues-raw/tripott/jwt-bouncer.svg)
+![npm version](https://img.shields.io/badge/npm-1.0.1-blue.svg) ![Licence MIT](https://img.shields.io/badge/licence-MIT-yellowgreen.svg) ![Open Issues](https://img.shields.io/github/issues-raw/tripott/jwt-bouncer.svg)
 
 A security guard to protect your APIs from undesirable JWTs by verifying JsonWebTokens. Services, such as CDS Hook services, should whitelist the `iss` and `jku` fields to only clients, such tenants using an EHR, they trust.
 
