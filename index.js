@@ -1,14 +1,18 @@
-module.exports = (validationResultsProp, validator, options) => (
+module.exports = (validationResultsProp, validator, options) => async (
   req,
   res,
   next
 ) => {
-  const validationResults = validator({ req, ...options });
-
-  if (validationResults.ok) {
-    req[validationResultsProp] = validationResults;
-    next();
-  } else {
-    next(validationResults.err);
+  try {
+    const validationResults = await validator({ req, ...options });
+    if (validationResults.ok) {
+      req[validationResultsProp] = validationResults;
+      next();
+    } else {
+      next(validationResults.err);
+    }
+  } catch (err) {
+    console.log("JWT Bouncer caught unexpected error");
+    next(err);
   }
 };
