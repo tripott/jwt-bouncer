@@ -152,7 +152,7 @@ module.exports = (validationResultsProp, validator, options) => async (
 
 ### Whitelist Validator
 
-The Whitelist validator sample function takes an `options` object as its argument. The `options` object will contain a propery named `req` which represents the ExpressJS request object and a url to the error documentation. The validator determines if a JWT is present on the incoming request as an `Authorization` header containing a `Bearer` token. If so, it decodes and checks the JWT against a whitelist.
+The Whitelist validator sample function takes an `options` object as its argument. The `options` object will contain a property named `req` which represents the ExpressJS request object and a url to the error documentation. The validator determines if a JWT is present on the incoming request as an `Authorization` header containing a `Bearer` token. If so, it decodes and checks the JWT against a whitelist.
 
 > This validator assumes that a whitelist array has already been retrieved by prior middleware and is available as a `whitelist` property on the request object.
 
@@ -168,7 +168,8 @@ If everything is ok, the validator returns an object containing these properties
   ok: true,
   whiteListItem: foundWhiteListItem,
   decodedToken: decoded,
-  token }
+  token
+}
 ```
 
 If the jwt did not pass whitelist validation then the object returned from the validator will look like:
@@ -181,9 +182,16 @@ If the jwt did not pass whitelist validation then the object returned from the v
 
 ## JWT Validator
 
-JWT Validator function that takes an options object as its argument containing `req` and `apiErrorDocsURL` properties. The validator then:
+The jwt validator sample function takes an `options` object as its argument. The `options` object will contain a property named `req` which represents the ExpressJS request object and a url to the error documentation.
 
-- We need a public key (jwk) to help validate the token (jwt). Retrieves a json web key (jwk) from a publicly available JSON Web Keyset resource served from the token's jku header field that contains a url endpoint. If the jku is not on the token header, attempt to get the jku url from the whitelist item. If the jku header field is omitted, the CDS Client and CDS Service SHALL communicate the JWK Set out-of-band. In other words, the public key, JWK (JSON Web Key) is stored within the whitelist.
-- Converts the json web key to PEM format
-  > Privacy-Enhanced Mail (PEM) is a de facto file format for storing and sending cryptographic keys, certificates, and other data, based on a set of 1993 IETF standards defining "privacy-enhanced mail."
-- Verifies the JWT token and audience using the public key.
+The CDS Client (EHR Vendor) MAY make its JWK (JSON Web Key/Public Key) set available via a URL identified by the `jku` header field, as defined by rfc7515 4.1.2. If the `jku` (JSON Web Key URL) property does not exist on incoming JWT header from the client then attempt to obtain `jku` property from whitelist.
+
+If the `jku` _DOES_ exists then we fetch the JWK Set using the `jku` url. The required `kid` value from the JWT header allows a CDS Service to identify the correct JWK in the JWK Set.
+
+If a `jku` _DOES NOT_ exist, the CDS Client MUST communicate the JWK to the CDS Service provider (that's us) out-of-band. In this case, we should have already communicated with the EHR vendor and stored a single key from the EHR vendor as a string in PEM format using the `jwkPublicKeyPEM` property on the whitelist item.
+
+Either way, once we have a JWK, we make sure its in PEM format and attempt to verify the jwt.
+
+## Validator Error Handling
+
+If there's a problem, a validator function should return an error to the `jwt-bouncer` and let the bouncer call the error handling middleware. If this occurs, the client receives the appropriate HTTP error message. Otherwise, the `jwt-bouncer` calls the next function and the next middleware in line continues to processes the request.
