@@ -12,7 +12,7 @@
   "author": "tripott",
   "license": "MIT",
   "devDependencies": {
-    "lynt": "^0.5.4",
+    "lynt": "^0.5.5",
     "prettier": "^1.16.1"
   },
   "dependencies": {},
