@@ -1,6 +1,6 @@
 {
   "name": "jwt-bouncer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A security guard to protect your APIs from undesirable JWTs by verifying JsonWebTokens.",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "tripott",
   "license": "MIT",
   "devDependencies": {
-    "lynt": "^0.5.4",
+    "lynt": "^0.5.5",
     "prettier": "^1.16.1"
   },
   "dependencies": {},
